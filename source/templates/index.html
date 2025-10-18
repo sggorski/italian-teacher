@@ -9,5 +9,60 @@
 </head>
 <body>
 
+
+    <!--Selecting subject-->
+    <div class="stage1">
+        <form id="subjectForm">
+        <label>
+            <input type="radio" name="subjectType" value="person" required>
+            Person
+        </label><br>
+        <label>
+            <input type="radio" name="subjectType" value="sentence_form">
+            Sentence Form
+        </label><br><br>
+        <button type="submit">Confirm</button>
+    </form>
+    </div>
+
+    <div class="stage2SF">
+        <h2>Select a Noun</h2>
+        <form id="nounForm">
+            <select id="nounSelect" required>
+                <option value="" disabled selected>Select a noun</option>
+            </select>
+            <br><br>
+            <button type="submit">Confirm</button>
+        </form>
+    </div>
+
+    <div class="stage3SF">
+        <h2>Do you want an adjective?</h2>
+        <form id="adjectiveForm">
+            <label>
+                <input type="checkbox" id="adjectiveCheckbox">
+                Yes, include an adjective
+            </label>
+            <br><br>
+            <button type="submit">Confirm</button>
+        </form>
+    </div>
+
+    <div class="stage4SFA">
+        <h2>Select an Adjective</h2>
+        <form id="adjectivePickForm">
+            <select id="adjectiveSelect" required>
+                <option value="" disabled selected>Select a noun</option>
+            </select>
+            <br><br>
+            <button type="submit">Confirm</button>
+        </form>
+    </div>
+
+    <div class="stage5SF"></div>
+
+
+
+    <script src="../static/main.js"></script>
 </body>
 </html>

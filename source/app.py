@@ -6,17 +6,16 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.post('/api/set_subject')
-def set_subject():
-    """
-        If parameter subject == True we are dealing with personal pronoun,
-         else we are dealing with noun (optionally with adjective)
-    """
-    data = request.get_json()
-    subject = data.get('subject', True)
-    session['subject_type'] = subject
-    return jsonify({})
-
+@app.get('/api/get_data')
+def get_data():
+    nouns = language.get_nouns()
+    verbs = language.get_verbs()
+    adjectives = language.get_adjectives()
+    return jsonify({
+        'nouns': nouns,
+        'verbs': verbs,
+        'adjectives': adjectives,
+    })
 
 
 if __name__ == '__main__':
