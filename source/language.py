@@ -496,3 +496,57 @@ def get_present_tradurre(person, n):
             return "traducete"
         else:
             return "traducono"
+
+def get_past_tense(verb, data):
+    person = data[0]
+    n = data[1]
+    gender = data[2]
+
+    participio = get_participio_passato(verb)
+
+    if verb in ("essere", "uscire", "andare", "venire", "salire", "rimanere", "morire", "nascere",
+                "scendere", "correre", "accendere", "crescere", "tornare", "visitare", "partire", "pulire"):
+        modal = get_present_essere(person, n)
+        if gender == 2:
+            participio = participio[:-1] + 'a'
+    else:
+        modal = get_present_avere(person, n)
+
+    return modal + " " + participio
+
+def get_participio_passato(verb):
+    irregolari = {
+        "essere": "stato",
+        "fare": "fatto",
+        "dire": "detto",
+        "leggere": "letto",
+        "scrivere": "scritto",
+        "rompere": "rotto",
+        "cuocere": "cotto",
+        "tradurre": "tradotto",
+        "mettere": "messo",
+        "aprire": "aperto",
+        "morire": "morto",
+        "nascere": "nato",
+        "prendere": "preso",
+        "accendere": "acceso",
+        "perdere": "perso",
+        "correre": "corso",
+        "vedere": "visto",
+        "chiedere": "chiesto",
+        "rispondere": "risposto",
+        "chiudere": "chiuso",
+        "venire": "venuto",
+        "vincere": "vinto",
+        "vivere": "vissuto",
+        "bere": "bevuto",
+    }
+
+    if verb in irregolari.keys():
+        return irregolari[verb]
+    elif verb[-3] == 'a':
+        return verb[:-3] + "ato"
+    elif verb[-3] == 'e':
+        return verb[:-3] + "uto"
+    elif verb[-3] == 'i':
+        return verb[:-3] + "ito"
