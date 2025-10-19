@@ -128,8 +128,6 @@ def get_irregular_pronome_vicino(noun):
     else:
         return "queste"
 
-# quelle
-
 # zaimek wskazujący daleki
 def get_pronome_lontano(noun):
     if noun[0] in ('u','i','o','a','e'):
@@ -157,3 +155,85 @@ def get_irregular_pronome_lontano(noun):
         return "quella"
     else:
         return "quelle"
+
+def define_gender(noun):
+    if noun[-1] == 'o':
+        return "m_s"
+    elif noun[-1] == 'a':
+        return "f_s"
+    elif noun[-1] == 'i':
+        return "m_p"
+    elif noun[-1] == 'e':
+        if noun in ("parde", "nipote", "pane", "caffe", "te", "sale", "cameriere", "ingegnere",
+                "insegnante", "giornale", "attore", "sapone", "cane", "fiore", "elefante",
+                "leone", "pesce", "fiume", "mare", "sole", "latte"):
+            return "m_s"
+        elif noun in ("madre", "moglie", "colazione", "cena", "carne", "tigre"):
+            return "f_s"
+        else:
+            return "f_p"
+    else:
+        return "m_s"
+
+def get_possesive_pronoun(person, n, noun):
+    noun_gender = define_gender(noun)
+    if noun_gender == 'm_s':
+        if n == 1:
+            if person == 1:
+                return "mio"
+            elif person == 2:
+                return "tuo"
+            elif person == 3:
+                return "suo"
+        else:
+            if person == 1:
+                return "nostro"
+            elif person == 2:
+                return "vostro"
+            elif person == 3:
+                return "loro"
+    elif noun_gender == 'f_s':
+        if n == 1:
+            if person == 1:
+                return "mia"
+            elif person == 2:
+                return "tua"
+            elif person == 3:
+                return "sua"
+        else:
+            if person == 1:
+                return "nostra"
+            elif person == 2:
+                return "vostra"
+            elif person == 3:
+                return "loro"
+    elif noun_gender == 'm_p':
+        if n == 1:
+            if person == 1:
+                return "miei"
+            elif person == 2:
+                return "tuoi"
+            elif person == 3:
+                return "suoi"
+        else:
+            if person == 1:
+                return "nostri"
+            elif person == 2:
+                return "vostri"
+            elif person == 3:
+                return "loro"
+    else:
+        if n == 1:
+            if person == 1:
+                return "mie"
+            elif person == 2:
+                return "tue"
+            elif person == 3:
+                return "sue"
+        else:
+            if person == 1:
+                return "nostre"
+            elif person == 2:
+                return "vostre"
+            elif person == 3:
+                return "loro"
