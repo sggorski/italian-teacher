@@ -18,5 +18,11 @@ def get_data():
     })
 
 
+@app.post('/api/construct_sentence')
+def construct_sentence():
+    data = request.get_json()
+    sentence = language.construct_sentence(data)
+    return jsonify({"sentence": sentence})
+
 if __name__ == '__main__':
     app.run(debug=True)
