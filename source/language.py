@@ -550,3 +550,266 @@ def get_participio_passato(verb):
         return verb[:-3] + "uto"
     elif verb[-3] == 'i':
         return verb[:-3] + "ito"
+
+def get_future_tense(verb, data):
+    person = data[0]
+    n = data[1]
+
+    if verb not in ("cercare", "pagare", "essere", "avere", "fare", "andare", "venire", "dare", "dire",
+                    "rimanere", "vedere", "stare", "sapere"):
+        if verb[-3] == 'a' or verb[-3] == 'e':
+            if n == 1:
+                if person == 1:
+                    return verb[:-3] + "ero"
+                elif person == 2:
+                    return verb[:-3] + "erai"
+                else:
+                    return verb[:-3] + "era"
+            elif n == 2:
+                if person == 1:
+                    return verb[:-3] + "eremo"
+                elif person == 2:
+                    return verb[:-3] + "erete"
+                else:
+                    return verb[:-3] + "eranno"
+        elif verb[-3] == 'i':
+            if n == 1:
+                if person == 1:
+                    return verb[:-3] + "iro"
+                elif person == 2:
+                    return verb[:-3] + "irai"
+                else:
+                    return verb[:-3] + "ira"
+            elif n == 2:
+                if person == 1:
+                    return verb[:-3] + "iremo"
+                elif person == 2:
+                    return verb[:-3] + "irete"
+                else:
+                    return verb[:-3] + "iranno"
+    else:
+        return get_future_tense_irregular(verb, person, n)
+
+def get_future_tense_irregular(verb, person, n):
+    match verb:
+        case "cercare": return get_future_cercare(verb, person)
+        case "pagare": return get_future_pagare(verb, person)
+        case "essere": return get_future_essere(verb, person)
+        case "avere": return get_future_avere(verb, person)
+        case "fare": return get_future_fare(verb, person)
+        case "andare": return get_future_andare(verb, person)
+        case "venire": return get_future_venire(verb, person)
+        case "dare": return get_future_dare(verb, person)
+        case "dire": return get_future_dire(verb, person)
+        case "rimanere": return get_future_rimanere(verb, person)
+        case "vedere": return get_future_vedere(verb, person)
+        case "stare": return get_future_stare(verb, person)
+        case "sapere": return get_future_sapere(verb, person)
+
+def get_future_cercare(person, n):
+    if n == 1:
+        if person == 1:
+            return "cerchero"
+        elif person == 2:
+            return "cercherai"
+        else:
+            return "cerchera"
+    elif n == 2:
+        if person == 1:
+            return "cercheremo"
+        elif person == 2:
+            return "cercherete"
+        else:
+            return "cercheranno"
+
+def get_future_pagare(person, n):
+    if n == 1:
+        if person == 1:
+            return "paghero"
+        elif person == 2:
+            return "pagherai"
+        else:
+            return "paghera"
+    elif n == 2:
+        if person == 1:
+            return "pagheremo"
+        elif person == 2:
+            return "pagherete"
+        else:
+            return "pagheranno"
+
+def get_future_essere(person, n):
+    if n == 1:
+        if person == 1:
+            return "saro"
+        elif person == 2:
+            return "sarai"
+        else:
+            return "sara"
+    elif n == 2:
+        if person == 1:
+            return "saremo"
+        elif person == 2:
+            return "sarete"
+        else:
+            return "saranno"
+
+def get_future_avere(person, n):
+    if n == 1:
+        if person == 1:
+            return "avro"
+        elif person == 2:
+            return "avrai"
+        else:
+            return "avra"
+    elif n == 2:
+        if person == 1:
+            return "avremo"
+        elif person == 2:
+            return "avrete"
+        else:
+            return "avranno"
+
+def get_future_fare(person, n):
+    if n == 1:
+        if person == 1:
+            return "faro"
+        elif person == 2:
+            return "farai"
+        else:
+            return "fara"
+    elif n == 2:
+        if person == 1:
+            return "faremo"
+        elif person == 2:
+            return "farete"
+        else:
+            return "faranno"
+
+def get_future_andare(person, n):
+    if n == 1:
+        if person == 1:
+            return "andro"
+        elif person == 2:
+            return "andrai"
+        else:
+            return "andra"
+    elif n == 2:
+        if person == 1:
+            return "andremo"
+        elif person == 2:
+            return "andrete"
+        else:
+            return "andranno"
+
+def get_future_venire(person, n):
+    if n == 1:
+        if person == 1:
+            return "verro"
+        elif person == 2:
+            return "verrai"
+        else:
+            return "verra"
+    elif n == 2:
+        if person == 1:
+            return "verremo"
+        elif person == 2:
+            return "verrete"
+        else:
+            return "verranno"
+
+def get_future_dare(person, n):
+    if n == 1:
+        if person == 1:
+            return "daro"
+        elif person == 2:
+            return "darai"
+        else:
+            return "dara"
+    elif n == 2:
+        if person == 1:
+            return "daremo"
+        elif person == 2:
+            return "darete"
+        else:
+            return "daranno"
+
+def get_future_dire(person, n):
+    if n == 1:
+        if person == 1:
+            return "diro"
+        elif person == 2:
+            return "dirai"
+        else:
+            return "dira"
+    elif n == 2:
+        if person == 1:
+            return "diremo"
+        elif person == 2:
+            return "direte"
+        else:
+            return "diranno"
+
+def get_future_rimanere(person, n):
+    if n == 1:
+        if person == 1:
+            return "rimarro"
+        elif person == 2:
+            return "rimarrai"
+        else:
+            return "rimarra"
+    elif n == 2:
+        if person == 1:
+            return "rimarremo"
+        elif person == 2:
+            return "rimarrete"
+        else:
+            return "rimarranno"
+
+def get_future_vedere(person, n):
+    if n == 1:
+        if person == 1:
+            return "vedro"
+        elif person == 2:
+            return "vedrai"
+        else:
+            return "vedra"
+    elif n == 2:
+        if person == 1:
+            return "vedremo"
+        elif person == 2:
+            return "vedrete"
+        else:
+            return "vedranno"
+
+def get_future_stare(person, n):
+    if n == 1:
+        if person == 1:
+            return "staro"
+        elif person == 2:
+            return "starai"
+        else:
+            return "stara"
+    elif n == 2:
+        if person == 1:
+            return "staremo"
+        elif person == 2:
+            return "starete"
+        else:
+            return "staranno"
+
+def get_future_sapere(person, n):
+    if n == 1:
+        if person == 1:
+            return "sapro"
+        elif person == 2:
+            return "saprai"
+        else:
+            return "sapra"
+    elif n == 2:
+        if person == 1:
+            return "sapremo"
+        elif person == 2:
+            return "saprete"
+        else:
+            return "sapranno"
