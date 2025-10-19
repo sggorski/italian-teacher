@@ -288,9 +288,40 @@ verbForm.addEventListener('submit', (event) => {
     parameters.verb = verbSelect.value;
     console.log('Selected verb:', parameters.verb);
     document.querySelector('.stage3').hidden = true
-    flag = true;
+    //flag = true;
     displayCurrentDictionary(parameters);
-    document.querySelector('.stage1').hidden = false
+    document.querySelector('.stage3V1').hidden = false
+});
+
+const sentenceTypeForm = document.getElementById('sentenceTypeForm');
+sentenceTypeForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    parameters.sentence_type = document.querySelector('input[name="sentenceType"]:checked').value
+    console.log('Selected sentence type:', parameters.sentence_type);
+    displayCurrentDictionary(parameters);
+    document.querySelector('.stage3V1').hidden = true;
+    document.querySelector('.stage3V2').hidden = false;
+});
+
+const moodTypeForm = document.getElementById('moodTypeForm');
+moodTypeForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    parameters.mood_type = document.querySelector('input[name="moodType"]:checked').value
+    console.log('Selected mood type:', parameters.mood_type);
+    displayCurrentDictionary(parameters);
+    document.querySelector('.stage3V2').hidden = true;
+    document.querySelector('.stage3V3').hidden = false;
+});
+
+const tenseForm = document.getElementById('tenseForm');
+tenseForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    parameters.tense_type = document.querySelector('input[name="tenseType"]:checked').value
+    console.log('Selected tense type:', parameters.tense_type);
+    displayCurrentDictionary(parameters);
+    flag=true;
+    document.querySelector('.stage3V3').hidden = true;
+    document.querySelector('.stage1').hidden = false;
 });
 
 const finalResultDiv = document.getElementById('finalResult');
