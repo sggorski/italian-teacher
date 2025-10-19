@@ -53,7 +53,6 @@ h2 {
     box-shadow: 0 20px 40px rgba(0,0,0,0.12);
 }
 
-/* Live Output */
 #liveOutput {
     background-color: #ffffff;
     border-radius: 16px;
@@ -65,14 +64,9 @@ h2 {
     height: 180px;
     overflow-y: auto;
     box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
 }
 
-/* Przyciski */
+
 button {
     margin: 25px 25px;
     padding: 5px 5px;
@@ -90,7 +84,6 @@ button:hover {
     box-shadow: 0 8px 15px rgba(0,0,0,0.15);
 }
 
-/* Tabela */
 table {
     width: 100%;
     background-color: #ffffff;
@@ -100,7 +93,7 @@ table {
     box-shadow: 0 8px 20px rgba(0,0,0,0.06);
 }
 
-/* Komórki tabeli */
+
 table th, table td {
     padding: 16px;
     border-bottom: 1px solid #e5e7eb;
@@ -109,7 +102,7 @@ table th, table td {
 table > td {
 
 }
-/* Loader */
+
 .stageLoad {
     color: #1f2937;
     margin-top: 40px;
@@ -140,7 +133,7 @@ select, input[type="radio"], input[type="checkbox"] {
     max-width: 500px;
     margin: 0 auto;
 }
-/* Styl dla listy rozwijanej */
+
 select {
     padding: 10px 15px;
     border-radius: 12px;

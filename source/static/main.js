@@ -7,16 +7,14 @@ let flag = false
 
 function displayCurrentDictionary(dict) {
     const liveOutput = document.getElementById('liveOutput');
-    liveOutput.innerHTML = ''; // czyścimy div
+    liveOutput.innerHTML = '';
 
     if (Object.keys(dict).length === 0) {
         const p = document.createElement('p');
         p.textContent = "Here you will be able to see your current sentence's parameters";
         liveOutput.appendChild(p);
-        return; // kończymy funkcję, bo słownik jest pusty
+        return;
     }
-
-    // jeśli słownik nie jest pusty, wyświetlamy wszystkie klucze i wartości
     for (const [key, value] of Object.entries(dict)) {
         const p = document.createElement('p');
         p.textContent = `${key} → ${value}`;
