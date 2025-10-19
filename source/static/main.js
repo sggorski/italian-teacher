@@ -215,7 +215,20 @@ numberForm.addEventListener('submit', (event) => {
     }
 
     document.querySelector('.stage8SF').hidden = true;
-    uploadVerbs().then(r => document.querySelector('.stage3').hidden = false);
+    if(!flag) uploadVerbs().then(r => document.querySelector('.stage3').hidden = false);
+    else{
+            console.log("Collected data: ", parameters)
+            flag = false;
+            parameters = {}
+            document.querySelector('.stageLoad').hidden = false
+            let result = constructSentence(parameters);
+            result.then(r => {
+                document.querySelector('.stageLoad').hidden = true
+                const outputDiv = document.getElementById('finalResult');
+                outputDiv.textContent = r;
+                document.querySelector('.stageFinal').hidden = false
+            })
+    }
 });
 
 //handling table for picking the right person
