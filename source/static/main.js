@@ -7,15 +7,21 @@ let flag = false
 
 function displayCurrentDictionary(dict) {
     const liveOutput = document.getElementById('liveOutput');
-    liveOutput.innerHTML = '';
+    liveOutput.innerHTML = ''; // czyścimy div
 
+    if (Object.keys(dict).length === 0) {
+        const p = document.createElement('p');
+        p.textContent = "Here you will be able to see your current sentence's parameters";
+        liveOutput.appendChild(p);
+        return; // kończymy funkcję, bo słownik jest pusty
+    }
+
+    // jeśli słownik nie jest pusty, wyświetlamy wszystkie klucze i wartości
     for (const [key, value] of Object.entries(dict)) {
         const p = document.createElement('p');
         p.textContent = `${key} → ${value}`;
         liveOutput.appendChild(p);
     }
-
-    liveOutput.scrollTop = liveOutput.scrollHeight; // przewiń do końca
 }
 
 async function fetchData() {
@@ -71,6 +77,7 @@ stages.forEach(stage => {
 });
 
 fetchData();
+displayCurrentDictionary(parameters);
 
 //picking subject
 const subjectForm = document.getElementById('subjectForm');
@@ -236,8 +243,6 @@ numberForm.addEventListener('submit', (event) => {
     if(!flag) uploadVerbs().then(r => document.querySelector('.stage3').hidden = false);
     else{
             console.log("Collected data: ", parameters)
-            flag = false;
-            parameters = {}
             document.querySelector('.stageLoad').hidden = false
             let result = constructSentence(parameters);
             result.then(r => {
@@ -265,8 +270,6 @@ buttons.forEach(button => {
         if(!flag) uploadVerbs().then(r => document.querySelector('.stage3').hidden = false);
         else{
             console.log("Collected data: ", parameters)
-            flag = false;
-            parameters = {}
             document.querySelector('.stageLoad').hidden = false
             let result = constructSentence(parameters);
             result.then(r => {
@@ -290,4 +293,16 @@ verbForm.addEventListener('submit', (event) => {
     flag = true;
     displayCurrentDictionary(parameters);
     document.querySelector('.stage1').hidden = false
+});
+
+const finalResultDiv = document.getElementById('finalResult');
+const practiceBtn = document.getElementById('practiceAgainBtn');
+practiceBtn.addEventListener('click', () => {
+    finalResultDiv.textContent = '';
+    parameters = {};
+    displayCurrentDictionary(parameters)
+    flag = false;
+    document.querySelector('.stageFinal').hidden = true
+    document.querySelector('.stage1').hidden = false
+
 });

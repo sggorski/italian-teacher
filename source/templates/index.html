@@ -5,224 +5,235 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../static/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
-
-    <div id="liveOutput" style="border: 1px solid #ccc; padding: 10px; height: 150px; overflow-y: auto;">
-        <!-- dynamic content will appear here -->
+    <div class="header text-center mb-4">
+        <h1>Italian Teacher</h1>
+        <p class="lead text-muted">
+            Learn Italian interactively! Select subjects, nouns, verbs, adjectives, and practice forming sentences with real-time feedback. Perfect for beginners and intermediate learners.
+        </p>
     </div>
-    <!--Selecting subject-->
-    <div class="stage1">
-        <h2>Select your subject</h2>
-        <form id="subjectForm">
-        <label>
-            <input type="radio" name="subjectType" value="person" required>
-            Person
-        </label><br>
-        <label>
-            <input type="radio" name="subjectType" value="sentence_form">
-            Sentence Form
-        </label><br><br>
-        <button type="submit">Confirm</button>
-    </form>
-    </div>
-
-    <div class="stage2SF">
-        <h2>Select a Noun</h2>
-        <form id="nounForm">
-            <select id="nounSelect" required>
-                <option value="" disabled selected>Select a noun</option>
-            </select>
-            <br><br>
-            <button type="submit">Confirm</button>
-        </form>
-    </div>
-
-    <div class="stage3SF">
-        <h2>Do you want an adjective?</h2>
-        <form id="adjectiveForm">
+    <div class="container lead text-muted">
+        <!--Selecting subject-->
+        <div class="stage1">
+            <h2>Select your subject</h2>
+            <form id="subjectForm">
             <label>
-                <input type="checkbox" id="adjectiveCheckbox">
-                Yes, include an adjective
-            </label>
-            <br><br>
-            <button type="submit">Confirm</button>
-        </form>
-    </div>
-
-    <div class="stage4SFA">
-        <h2>Select an Adjective</h2>
-        <form id="adjectivePickForm">
-            <select id="adjectiveSelect" required>
-                <option value="" disabled selected>Select an adjective</option>
-            </select>
-            <br><br>
-            <button type="submit">Confirm</button>
-        </form>
-    </div>
-
-    <div class="stage5SF">
-        <h2>Select an article type</h2>
-        <form id="articleForm">
-            <label>
-                <input type="radio" name="articleType" value="none" required>
-                None
+                <input type="radio" name="subjectType" value="person" required>
+                Person
             </label><br>
             <label>
-                <input type="radio" name="articleType" value="definite" required>
-                Definite
-            </label><br>
-            <label>
-                <input type="radio" name="articleType" value="indefinite">
-                Indefinite
+                <input type="radio" name="subjectType" value="sentence_form">
+                Sentence Form
             </label><br><br>
             <button type="submit">Confirm</button>
         </form>
-    </div>
+        </div>
 
-    <div class="stage6SF">
-        <h2>Select an demonstrative's type</h2>
-        <form id="demonstrativeForm">
-            <label>
-                <input type="radio" name="demonstrativeType" value="none" required>
-                None
-            </label><br>
-            <label>
-                <input type="radio" name="demonstrativeType" value="far" required>
-                Far
-            </label><br>
-            <label>
-                <input type="radio" name="demonstrativeType" value="near">
-                Near
-            </label><br><br>
-            <button type="submit">Confirm</button>
-        </form>
-    </div>
+        <div class="stage2SF">
+            <h2>Select a Noun</h2>
+            <form id="nounForm">
+                <select id="nounSelect" required>
+                    <option value="" disabled selected>Select a noun</option>
+                </select>
+                <br><br>
+                <button type="submit">Confirm</button>
+            </form>
+        </div>
 
-    <div class="stage7SF">
-        <h2>Select an possessive's type</h2>
-        <form id="possessiveForm">
-            <label>
-                <input type="radio" name="possessiveType" value="none" required>
-                None
-            </label><br>
-            <label>
-                <input type="radio" name="possessiveType" value="io" required>
-                I - (io)
-            </label><br>
-            <label>
-                <input type="radio" name="possessiveType" value="tu">
-                You - (tu)
-            </label><br>
-            <label>
-                <input type="radio" name="possessiveType" value="lui" required>
-                He - (lui)
-            </label><br>
-            <label>
-                <input type="radio" name="possessiveType" value="lei" required>
-                She - (lei)
-            </label><br>
-            <label>
-                <input type="radio" name="possessiveType" value="noi" required>
-                We - (noi)
-            </label><br>
-            <label>
-                <input type="radio" name="possessiveType" value="voi" required>
-                You - (voi)
-            </label><br>
-            <label>
-                <input type="radio" name="possessiveType" value="loro" required>
-                They - (loro)
-            </label><br><br>
-            <button type="submit">Confirm</button>
-        </form>
-    </div>
+        <div class="stage3SF">
+            <h2>Do you want an adjective?</h2>
+            <form id="adjectiveForm">
+                <label>
+                    <input type="checkbox" id="adjectiveCheckbox">
+                    Yes, include an adjective
+                </label>
+                <br><br>
+                <button type="submit">Confirm</button>
+            </form>
+        </div>
 
-    <div class="stage8SF">
-        <h2>Select singular or plural form</h2>
-        <form id="numberForm">
-            <label>
-                <input type="radio" name="numberType" value="singular" required>
-                Singular
-            </label><br>
-            <label>
-                <input type="radio" name="numberType" value="plural" required>
-                Plural
-            </label><br><br>
-            <button type="submit">Confirm</button>
-        </form>
-    </div>
+        <div class="stage4SFA">
+            <h2>Select an Adjective</h2>
+            <form id="adjectivePickForm">
+                <select id="adjectiveSelect" required>
+                    <option value="" disabled selected>Select an adjective</option>
+                </select>
+                <br><br>
+                <button type="submit">Confirm</button>
+            </form>
+        </div>
 
-    <div class="stage2P">
-        <table>
-            <thead>
-                <tr>
-                    <th>Person</th>
-                    <th>Singular</th>
-                    <th>Plural</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1st Person</td>
-                    <td>
-                        <button data-code="1-1-1">Male</button>
-                        <button data-code="1-1-2">Female</button>
-                    </td>
-                    <td>
-                        <button data-code="1-2-1">Male</button>
-                        <button data-code="1-2-2">Female</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2nd Person</td>
-                    <td>
-                        <button data-code="2-1-1">Male</button>
-                        <button data-code="2-1-2">Female</button>
-                    </td>
-                    <td>
-                        <button data-code="2-2-1">Male</button>
-                        <button data-code="2-2-2">Female</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3rd Person</td>
-                    <td>
-                        <button data-code="3-1-1">Male</button>
-                        <button data-code="3-1-2">Female</button>
-                    </td>
-                    <td>
-                        <button data-code="3-2-1">Male</button>
-                        <button data-code="3-2-2">Female</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <div class="stage5SF">
+            <h2>Select an article type</h2>
+            <form id="articleForm">
+                <label>
+                    <input type="radio" name="articleType" value="none" required>
+                    None
+                </label><br>
+                <label>
+                    <input type="radio" name="articleType" value="definite" required>
+                    Definite
+                </label><br>
+                <label>
+                    <input type="radio" name="articleType" value="indefinite">
+                    Indefinite
+                </label><br><br>
+                <button type="submit">Confirm</button>
+            </form>
+        </div>
 
-    <div class="stage3">
-        <h2>Select a Verb</h2>
-        <form id="verbForm">
-            <select id="verbSelect" required>
-                <option value="" disabled selected>Select a verb</option>
-            </select>
-            <br><br>
-            <button type="submit">Confirm</button>
-        </form>
-    </div>
+        <div class="stage6SF">
+            <h2>Select an demonstrative's type</h2>
+            <form id="demonstrativeForm">
+                <label>
+                    <input type="radio" name="demonstrativeType" value="none" required>
+                    None
+                </label><br>
+                <label>
+                    <input type="radio" name="demonstrativeType" value="far" required>
+                    Far
+                </label><br>
+                <label>
+                    <input type="radio" name="demonstrativeType" value="near">
+                    Near
+                </label><br><br>
+                <button type="submit">Confirm</button>
+            </form>
+        </div>
 
-    <div class="stageLoad" style="text-align: center; margin-top: 50px;">
-        <h2>Please wait, processing your request...</h2>
-        <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem; margin-top: 20px;">
-            <span class="visually-hidden">Loading...</span>
+        <div class="stage7SF">
+            <h2>Select an possessive's type</h2>
+            <form id="possessiveForm">
+                <label>
+                    <input type="radio" name="possessiveType" value="none" required>
+                    None
+                </label><br>
+                <label>
+                    <input type="radio" name="possessiveType" value="io" required>
+                    I - (io)
+                </label><br>
+                <label>
+                    <input type="radio" name="possessiveType" value="tu">
+                    You - (tu)
+                </label><br>
+                <label>
+                    <input type="radio" name="possessiveType" value="lui" required>
+                    He - (lui)
+                </label><br>
+                <label>
+                    <input type="radio" name="possessiveType" value="lei" required>
+                    She - (lei)
+                </label><br>
+                <label>
+                    <input type="radio" name="possessiveType" value="noi" required>
+                    We - (noi)
+                </label><br>
+                <label>
+                    <input type="radio" name="possessiveType" value="voi" required>
+                    You - (voi)
+                </label><br>
+                <label>
+                    <input type="radio" name="possessiveType" value="loro" required>
+                    They - (loro)
+                </label><br><br>
+                <button type="submit">Confirm</button>
+            </form>
+        </div>
+
+        <div class="stage8SF">
+            <h2>Select singular or plural form</h2>
+            <form id="numberForm">
+                <label>
+                    <input type="radio" name="numberType" value="singular" required>
+                    Singular
+                </label><br>
+                <label>
+                    <input type="radio" name="numberType" value="plural" required>
+                    Plural
+                </label><br><br>
+                <button type="submit">Confirm</button>
+            </form>
+        </div>
+
+        <div class="stage2P">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Person</th>
+                        <th>Singular</th>
+                        <th>Plural</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1st Person</td>
+                        <td>
+                            <button data-code="1-1-1">Male</button>
+                            <button data-code="1-1-2">Female</button>
+                        </td>
+                        <td>
+                            <button data-code="1-2-1">Male</button>
+                            <button data-code="1-2-2">Female</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2nd Person</td>
+                        <td>
+                            <button data-code="2-1-1">Male</button>
+                            <button data-code="2-1-2">Female</button>
+                        </td>
+                        <td>
+                            <button data-code="2-2-1">Male</button>
+                            <button data-code="2-2-2">Female</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3rd Person</td>
+                        <td>
+                            <button data-code="3-1-1">Male</button>
+                            <button data-code="3-1-2">Female</button>
+                        </td>
+                        <td>
+                            <button data-code="3-2-1">Male</button>
+                            <button data-code="3-2-2">Female</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="stage3">
+            <h2>Select a Verb</h2>
+            <form id="verbForm">
+                <select id="verbSelect" required>
+                    <option value="" disabled selected>Select a verb</option>
+                </select>
+                <br><br>
+                <button type="submit">Confirm</button>
+            </form>
+        </div>
+
+        <div class="stageLoad" style="text-align: center; margin-top: 50px;">
+            <h2>Please wait, processing your request...</h2>
+            <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem; margin-top: 20px;">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <div id="liveOutput">
         </div>
     </div>
-
-    <div class="stageFinal">
-        <div id="finalResult"></div>
+    <div class="stageFinal lead text-muted">
+        <div class="mb-3 text-center">
+            Your correct sentence is placed below! Click the button to practise more!
+        </div>
+        <div id="finalResult" class="mb-3"></div>
+        <button id="practiceAgainBtn">Practice Again</button>
     </div>
+
 
     <script src="../static/main.js"></script>
 </body>
