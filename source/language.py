@@ -7,10 +7,10 @@ def get_nouns():
              "giornale", "congresso", "parlamento", "bandiera", "banca", "contanti", "soldi", "negozio", "mercato", "maglietta",
              "pantaloni", "scarpe", "borsa", "cappello", "cappotto", "vestito", "collana", "passatempi", "sport", "calcio",
              "pallavolo", "tennis", "spiaggia", "libro", "film", "attore", "attrice", "musica", "casa", "cucina", "bagno",
-             "porta", "finestra", "scale", "letto", "orologio", "sapone", "specchio", "frigo", "macchina", "autobus",
+             "porta", "finestra", "scala", "letto", "orologio", "sapone", "specchio", "frigo", "macchina", "autobus",
              "bicicletta", "treno", "aeroplano", "barca", "ufficio", "fabbrica", "collega", "computer", "gatto", "cane",
              "pesce", "uccello", "cavallo", "leone", "tigre", "elefante", "orso", "natura", "albero", "fiore", "bosco",
-             "fiume", "montagna", "lago", "mare", "terra", "cielo", "sole", "luna", "stella" "vento", "pioggia"
+             "fiume", "montagna", "lago", "mare", "terra", "cielo", "sole", "luna", "stella", "vento", "pioggia"
     ]
     return nouns
 
@@ -42,11 +42,6 @@ def get_verbs():
              "camminare", "iniziare", "imparare", "cambiare", "guadagnare", "tirare", "invitare", "diventare",
              "giocare", "credere", "vendere", "ripetere", "godere", "dormire", "servire", "pregare", "partire", "pulire"]
     return verbs
-
-# czasowniki modalne
-def get_modal_verbs():
-    modal_verbs = ["volere", "dovere", "potere"]
-    return modal_verbs
 
 # liczba mnoga
 def get_plural(noun):
@@ -106,3 +101,59 @@ def get_articolo_determinativo_plural(noun):
         return "le"
     else:
         return "i"
+
+# zaimek wskazujący bliski
+def get_pronome_vicino(noun):
+    if noun[0] in ('u','i','o','a','e'):
+        return "quest'"
+    elif noun[-1] == 'o':
+        return "questo"
+    elif noun[-1] == 'a':
+        return "questa"
+    elif noun[-1] == 'i':
+        return "questi"
+    elif noun[-1] == 'e':
+        return get_irregular_pronome_vicino(noun)
+    else:
+        return "questo"
+
+# zaimek wskazujący bliski dla rzeczowników nieregularnych
+def get_irregular_pronome_vicino(noun):
+    if noun in ("parde", "nipote", "pane", "caffe", "te", "sale", "cameriere", "ingegnere",
+                "insegnante", "giornale", "attore", "sapone", "cane", "fiore", "elefante",
+                "leone", "pesce", "fiume", "mare", "sole", "latte"):
+        return "questo"
+    elif noun in ("madre", "moglie", "colazione", "cena", "carne", "tigre"):
+        return "questa"
+    else:
+        return "queste"
+
+# quelle
+
+# zaimek wskazujący daleki
+def get_pronome_lontano(noun):
+    if noun[0] in ('u','i','o','a','e'):
+        return "quell'"
+    elif noun[0] in ('x', 'z', 'y', 'j') or (noun[0] == 's' and noun[1] in ('t', 'p', 'c')) or (noun[0] == 'p' and noun[1] in ('n', 's')):
+        return "quello"
+    elif noun[-1] == 'o':
+        return "quel"
+    elif noun[-1] == 'a':
+        return "quella"
+    elif noun[-1] == 'i':
+        return "quelli"
+    elif noun[-1] == 'e':
+        return get_irregular_pronome_lontano(noun)
+    else:
+        return "quel"
+
+# zaimek wskazujący daleki dla rzeczowników nieregularnych
+def get_irregular_pronome_lontano(noun):
+    if noun in ("parde", "nipote", "pane", "caffe", "te", "sale", "cameriere", "ingegnere",
+                "insegnante", "giornale", "attore", "sapone", "cane", "fiore", "elefante",
+                "leone", "pesce", "fiume", "mare", "sole", "latte"):
+        return "quel"
+    elif noun in ("madre", "moglie", "colazione", "cena", "carne", "tigre"):
+        return "quella"
+    else:
+        return "quelle"
