@@ -30,7 +30,7 @@ def get_adjectives():
 
 # czasowniki
 def get_verbs():
-    verbs = ["essere", "avere", "fare", "dire", "capire", "sapere", "spiengare", "uscire", "andare", "venire",
+    verbs = ["essere", "avere", "fare", "dire", "capire", "sapere", "spiegare", "uscire", "andare", "venire",
              "preferire", "bere", "salire", "rimanere", "morire", "finire", "vedere", "leggere", "nascere",
              "chiedere", "rispondere", "conoscere", "mettere", "aprire", "perdere", "vivere", "cuocere",
              "scendere", "scrivere", "prendere", "rompere", "correre", "vincere", "tradurre", "chiudere",
@@ -237,3 +237,262 @@ def get_possesive_pronoun(person, n, noun):
                 return "vostre"
             elif person == 3:
                 return "loro"
+
+def get_present_tense(verb, data):
+    person = data[0]
+    n = data[1]
+
+    if verb not in ("essere", "avere", "fare", "dire", "sapere", "andare", "venire",
+                    "bere", "rimanere", "tradurre", "dare", "uscire"):
+        if verb[-3] == 'a':
+            if n == 1:
+                if person == 1:
+                    return verb[:-3] + "o"
+                elif person == 2:
+                    return verb[:-3] + "i"
+                else:
+                    return verb[:-3] + "a"
+            elif n == 2:
+                if person == 1:
+                    return verb[:-3] + "iamo"
+                elif person == 2:
+                    return verb[:-3] + "ate"
+                else:
+                    return verb[:-3] + "ano"
+        elif verb[-3] == 'e':
+            if n == 1:
+                if person == 1:
+                    return verb[:-3] + "o"
+                elif person == 2:
+                    return verb[:-3] + "i"
+                else:
+                    return verb[:-3] + "e"
+            elif n == 2:
+                if person == 1:
+                    return verb[:-3] + "iamo"
+                elif person == 2:
+                    return verb[:-3] + "ete"
+                else:
+                    return verb[:-3] + "ono"
+        elif verb in ("capire", "preferire", "finire"):
+            if n == 1:
+                if person == 1:
+                    return verb[:-3] + "isco"
+                elif person == 2:
+                    return verb[:-3] + "isci"
+                else:
+                    return verb[:-3] + "isce"
+            elif n == 2:
+                if person == 1:
+                    return verb[:-3] + "iamo"
+                elif person == 2:
+                    return verb[:-3] + "ite"
+                else:
+                    return verb[:-3] + "iscono"
+        elif verb[-3] == 'i':
+            if n == 1:
+                if person == 1:
+                    return verb[:-3] + "o"
+                elif person == 2:
+                    return verb[:-3] + "i"
+                else:
+                    return verb[:-3] + "e"
+            elif n == 2:
+                if person == 1:
+                    return verb[:-3] + "iamo"
+                elif person == 2:
+                    return verb[:-3] + "ite"
+                else:
+                    return verb[:-3] + "ono"
+    else:
+        return get_present_tense_irregular(verb, person, n)
+
+def get_present_tense_irregular(verb, person, n):
+    match verb:
+        case "essere": return get_present_essere(person, n)
+        case "avere": return get_present_avere(person, n)
+        case "fare": return get_present_fare(person, n)
+        case "dire": return get_present_dire(person, n)
+        case "sapere": return get_present_sapere(person, n)
+        case "uscire": return get_present_uscire(person, n)
+        case "andare": return get_present_andare(person, n)
+        case "venire": return get_present_venire(person, n)
+        case "bere": return get_present_bere(person, n)
+        case "rimanere": return get_present_rimanere(person, n)
+        case "tradurre": return get_present_tradurre(person, n)
+
+def get_present_essere(person, n):
+    if n == 1:
+        if person == 1:
+            return "sono"
+        elif person == 2:
+            return "sei"
+        else:
+            return "e"
+    elif n == 2:
+        if person == 1:
+            return "siamo"
+        elif person == 2:
+            return "siete"
+        else:
+            return "sono"
+
+def get_present_avere(person, n):
+    if n == 1:
+        if person == 1:
+            return "ho"
+        elif person == 2:
+            return "hai"
+        else:
+            return "ha"
+    elif n == 2:
+        if person == 1:
+            return "abbiamo"
+        elif person == 2:
+            return "avete"
+        else:
+            return "hanno"
+
+def get_present_fare(person, n):
+    if n == 1:
+        if person == 1:
+            return "faccio"
+        elif person == 2:
+            return "fai"
+        else:
+            return "fa"
+    elif n == 2:
+        if person == 1:
+            return "facciamo"
+        elif person == 2:
+            return "fate"
+        else:
+            return "fanno"
+
+def get_present_dire(person, n):
+    if n == 1:
+        if person == 1:
+            return "dico"
+        elif person == 2:
+            return "dici"
+        else:
+            return "dice"
+    elif n == 2:
+        if person == 1:
+            return "diciamo"
+        elif person == 2:
+            return "dite"
+        else:
+            return "dicono"
+
+def get_present_sapere(person, n):
+    if n == 1:
+        if person == 1:
+            return "so"
+        elif person == 2:
+            return "sai"
+        else:
+            return "sa"
+    elif n == 2:
+        if person == 1:
+            return "sappiamo"
+        elif person == 2:
+            return "sapete"
+        else:
+            return "sanno"
+
+def get_present_uscire(person, n):
+    if n == 1:
+        if person == 1:
+            return "esco"
+        elif person == 2:
+            return "esci"
+        else:
+            return "esce"
+    elif n == 2:
+        if person == 1:
+            return "usciamo"
+        elif person == 2:
+            return "uscite"
+        else:
+            return "escono"
+
+def get_present_andare(person, n):
+    if n == 1:
+        if person == 1:
+            return "vado"
+        elif person == 2:
+            return "vai"
+        else:
+            return "va"
+    elif n == 2:
+        if person == 1:
+            return "andiamo"
+        elif person == 2:
+            return "andate"
+        else:
+            return "vanno"
+
+def get_present_venire(person, n):
+    if n == 1:
+        if person == 1:
+            return "vengo"
+        elif person == 2:
+            return "vieni"
+        else:
+            return "viene"
+    elif n == 2:
+        if person == 1:
+            return "veniamo"
+        elif person == 2:
+            return "venite"
+        else:
+            return "vengono"
+
+def get_present_bere(person, n):
+    if n == 1:
+        if person == 1:
+            return "bevo"
+        elif person == 2:
+            return "bevi"
+        else:
+            return "beve"
+    elif n == 2:
+        if person == 1:
+            return "beviamo"
+        elif person == 2:
+            return "bevete"
+        else:
+            return "bevono"
+
+def get_present_rimanere(person, n):
+    if n == 1:
+        if person == 1:
+            return "rimango"
+        elif person == 2:
+            return "rimani"
+        else:
+            return "rimane"
+    elif n == 2:
+        if person == 1:
+            return "rimaniamo"
+        elif person == 2:
+            return "rimanete"
+        else:
+            return "rimangono"
+
+def get_present_tradurre(person, n):
+    if n == 1:
+        if person == 1:
+            return "traduco"
+        elif person == 2:
+            return "traduci"
+        else:
+            return "traduce"
+    elif n == 2:
+        if person == 1:
+            return "traduciamo"
+        elif person == 2:
+            return "traducete"
+        else:
+            return "traducono"
