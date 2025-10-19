@@ -10,7 +10,9 @@
 </head>
 <body>
 
-
+    <div id="liveOutput" style="border: 1px solid #ccc; padding: 10px; height: 150px; overflow-y: auto;">
+        <!-- dynamic content will appear here -->
+    </div>
     <!--Selecting subject-->
     <div class="stage1">
         <h2>Select your subject</h2>
@@ -65,6 +67,10 @@
         <h2>Select an article type</h2>
         <form id="articleForm">
             <label>
+                <input type="radio" name="articleType" value="none" required>
+                None
+            </label><br>
+            <label>
                 <input type="radio" name="articleType" value="definite" required>
                 Definite
             </label><br>
@@ -80,7 +86,7 @@
         <h2>Select an demonstrative's type</h2>
         <form id="demonstrativeForm">
             <label>
-                <input type="radio" name="demonstrativeType" value="" required>
+                <input type="radio" name="demonstrativeType" value="none" required>
                 None
             </label><br>
             <label>
@@ -99,7 +105,7 @@
         <h2>Select an possessive's type</h2>
         <form id="possessiveForm">
             <label>
-                <input type="radio" name="possessiveType" value="" required>
+                <input type="radio" name="possessiveType" value="none" required>
                 None
             </label><br>
             <label>
@@ -217,8 +223,6 @@
     <div class="stageFinal">
         <div id="finalResult"></div>
     </div>
-
-
 
     <script src="../static/main.js"></script>
 </body>

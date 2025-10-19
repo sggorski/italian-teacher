@@ -2,10 +2,21 @@ let nouns = [];
 let verbs = [];
 let adjectives = [];
 
-let parameters = {
-};
-
+let parameters = {};
 let flag = false
+
+function displayCurrentDictionary(dict) {
+    const liveOutput = document.getElementById('liveOutput');
+    liveOutput.innerHTML = '';
+
+    for (const [key, value] of Object.entries(dict)) {
+        const p = document.createElement('p');
+        p.textContent = `${key} → ${value}`;
+        liveOutput.appendChild(p);
+    }
+
+    liveOutput.scrollTop = liveOutput.scrollHeight; // przewiń do końca
+}
 
 async function fetchData() {
     try {
@@ -77,6 +88,7 @@ subjectForm.addEventListener('submit', (event) => {
         console.log('Object isPerson:',  parameters.object_isPerson);
     }
 
+    displayCurrentDictionary(parameters);
     document.querySelector('.stage1').hidden = true;
     if((parameters.subject_isPerson && !flag) || (parameters.object_isPerson && flag)){
         document.querySelector('.stage2P').hidden = false;
@@ -104,6 +116,7 @@ nounForm.addEventListener('submit', (event) => {
         parameters.object_noun = nounSelect.value;
         console.log('Selected noun:',  parameters.object_noun);
     }
+    displayCurrentDictionary(parameters);
     document.querySelector('.stage2SF').hidden = true
     document.querySelector('.stage3SF').hidden = false
 });
@@ -142,6 +155,7 @@ adjectivePickForm.addEventListener('submit', (event) => {
        parameters.object_adjective = adjectiveSelect.value;
        console.log('Selected adjective:', parameters.object_adjective);
     }
+    displayCurrentDictionary(parameters);
     document.querySelector('.stage4SFA').hidden = true
     document.querySelector('.stage5SF').hidden = false
 });
@@ -159,9 +173,12 @@ articleForm.addEventListener('submit', (event) => {
         parameters.object_article = article
         console.log('Selected article type:', parameters.object_article);
     }
-
+    displayCurrentDictionary(parameters);
     document.querySelector('.stage5SF').hidden = true;
-    document.querySelector('.stage6SF').hidden = false;
+    if(article === "none") document.querySelector('.stage6SF').hidden = false;
+    else if(article === "definite") document.querySelector('.stage7SF').hidden = false;
+    else document.querySelector('.stage8SF').hidden = false;
+
 });
 
 
@@ -178,9 +195,10 @@ demonstrativeForm.addEventListener('submit', (event) => {
         parameters.object_demonstrative = demonstrative
         console.log('Selected demonstrative type:', parameters.object_demonstrative);
     }
-
+    displayCurrentDictionary(parameters);
     document.querySelector('.stage6SF').hidden = true;
-    document.querySelector('.stage7SF').hidden = false;
+    if(demonstrative === "none") document.querySelector('.stage7SF').hidden = false;
+    else document.querySelector('.stage8SF').hidden = false;
 });
 
 
@@ -196,7 +214,7 @@ possessiveForm.addEventListener('submit', (event) => {
         parameters.object_possessive = possessive;
         console.log('Selected possessive type:', parameters.object_possessive);
     }
-
+    displayCurrentDictionary(parameters);
     document.querySelector('.stage7SF').hidden = true;
     document.querySelector('.stage8SF').hidden = false;
 });
@@ -213,7 +231,7 @@ numberForm.addEventListener('submit', (event) => {
         parameters.object_number = number;
         console.log('Selected number type:', parameters.object_number);
     }
-
+    displayCurrentDictionary(parameters);
     document.querySelector('.stage8SF').hidden = true;
     if(!flag) uploadVerbs().then(r => document.querySelector('.stage3').hidden = false);
     else{
@@ -242,6 +260,7 @@ buttons.forEach(button => {
             parameters.object_person_code = button.getAttribute('data-code');
             console.log('Selected code:', parameters.object_person_code);
         }
+        displayCurrentDictionary(parameters);
         document.querySelector('.stage2P').hidden = true;
         if(!flag) uploadVerbs().then(r => document.querySelector('.stage3').hidden = false);
         else{
@@ -269,5 +288,6 @@ verbForm.addEventListener('submit', (event) => {
     console.log('Selected verb:', parameters.verb);
     document.querySelector('.stage3').hidden = true
     flag = true;
+    displayCurrentDictionary(parameters);
     document.querySelector('.stage1').hidden = false
 });
