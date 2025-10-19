@@ -123,7 +123,7 @@ def get_irregular_pronome_vicino(noun):
                 "insegnante", "giornale", "attore", "sapone", "cane", "fiore", "elefante",
                 "leone", "pesce", "fiume", "mare", "sole", "latte"):
         return "questo"
-    elif noun in ("madre", "moglie", "colazione", "cena", "carne", "tigre"):
+    elif noun in ("madre", "moglie", "colazione", "carne", "tigre"):
         return "questa"
     else:
         return "queste"
@@ -151,7 +151,7 @@ def get_irregular_pronome_lontano(noun):
                 "insegnante", "giornale", "attore", "sapone", "cane", "fiore", "elefante",
                 "leone", "pesce", "fiume", "mare", "sole", "latte"):
         return "quel"
-    elif noun in ("madre", "moglie", "colazione", "cena", "carne", "tigre"):
+    elif noun in ("madre", "moglie", "colazione", "carne", "tigre"):
         return "quella"
     else:
         return "quelle"
@@ -168,7 +168,7 @@ def define_gender(noun):
                 "insegnante", "giornale", "attore", "sapone", "cane", "fiore", "elefante",
                 "leone", "pesce", "fiume", "mare", "sole", "latte"):
             return "m_s"
-        elif noun in ("madre", "moglie", "colazione", "cena", "carne", "tigre"):
+        elif noun in ("madre", "moglie", "colazione", "carne", "tigre"):
             return "f_s"
         else:
             return "f_p"
