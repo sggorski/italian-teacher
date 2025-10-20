@@ -844,8 +844,8 @@ def get_future_sapere(person, n):
         else:
             return "sapranno"
 
-# tryb przypuszczający prosty - teraźniejszy
-def get_condizionale_semplice(verb, data):
+# tryb przypuszczający prosty - czas teraźniejszy
+def get_condizionale_simplice(verb, data):
     person = data[0]
     n = data[1]
 
@@ -1113,3 +1113,189 @@ def get_condizionale_composto(verb, data):
         modal = get_condizionale_avere(person, n)
 
     return modal + " " + participio
+
+# tryb rozkazujący
+def get_imperativo(verb, data):
+    person = data[0]
+    n = data[1]
+
+    if verb not in ("essere", "avere", "fare", "stare", "sapere", "andare", "dare", "dire"):
+        if verb[-3] == 'a':
+            if n == 1:
+                if person == 2:
+                    return verb[:-3] + "a"
+                else:
+                    return verb[:-3] + "i"
+            elif n == 2:
+                if person == 1:
+                    return verb[:-3] + "iamo"
+                elif person == 2:
+                    return verb[:-3] + "ate"
+                else:
+                    return verb[:-3] + "ano"
+        elif verb[-3] == 'e':
+            if n == 1:
+                if person == 2:
+                    return verb[:-3] + "i"
+                else:
+                    return verb[:-3] + "a"
+            elif n == 2:
+                if person == 1:
+                    return verb[:-3] + "iamo"
+                elif person == 2:
+                    return verb[:-3] + "ete"
+                else:
+                    return verb[:-3] + "ono"
+        elif verb in ("capire", "preferire", "finire"):
+            if n == 1:
+                if person == 2:
+                    return verb[:-3] + "isci"
+                else:
+                    return verb[:-3] + "isca"
+            elif n == 2:
+                if person == 1:
+                    return verb[:-3] + "iamo"
+                elif person == 2:
+                    return verb[:-3] + "ite"
+                else:
+                    return verb[:-3] + "iscono"
+        elif verb[-3] == 'i':
+            if n == 1:
+                if person == 2:
+                    return verb[:-3] + "i"
+                else:
+                    return verb[:-3] + "a"
+            elif n == 2:
+                if person == 1:
+                    return verb[:-3] + "iamo"
+                elif person == 2:
+                    return verb[:-3] + "ite"
+                else:
+                    return verb[:-3] + "ono"
+    else:
+        return get_imperativo_irregular(verb, person, n)
+
+# tryb rozkazujący - odmiana nieregularna
+def get_imperativo_irregular(verb, person, n):
+    match verb:
+        case "essere": return get_imperativo_essere(person, n)
+        case "avere": return get_imperativo_avere(person, n)
+        case "fare": return get_imperativo_fare(person, n)
+        case "andare": return get_imperativo_andare(person, n)
+        case "dare": return get_imperativo_dare(person, n)
+        case "dire": return get_imperativo_dire(person, n)
+        case "sapere": return get_imperativo_sapere(person, n)
+        case "stare": return get_imperativo_stare(person, n)
+
+def get_imperativo_essere(person, n):
+    if n == 1:
+        if person == 2:
+            return "sii"
+        else:
+            return "sia"
+    elif n == 2:
+        if person == 1:
+            return "siamo"
+        elif person == 2:
+            return "siete"
+        else:
+            return "siano"
+
+def get_imperativo_avere(person, n):
+    if n == 1:
+        if person == 2:
+            return "abbi"
+        else:
+            return "abbia"
+    elif n == 2:
+        if person == 1:
+            return "abbiamo"
+        elif person == 2:
+            return "abbiate"
+        else:
+            return "abbiano"
+
+def get_imperativo_sapere(person, n):
+    if n == 1:
+        if person == 2:
+            return "sappi"
+        else:
+            return "sappia"
+    elif n == 2:
+        if person == 1:
+            return "sappiamo"
+        elif person == 2:
+            return "sappiate"
+        else:
+            return "sappiano"
+
+def get_imperativo_andare(person, n):
+    if n == 1:
+        if person == 2:
+            return "va"
+        else:
+            return "vada"
+    elif n == 2:
+        if person == 1:
+            return "andiamo"
+        elif person == 2:
+            return "andate"
+        else:
+            return "vadano"
+
+def get_imperativo_fare(person, n):
+    if n == 1:
+        if person == 2:
+            return "fa"
+        else:
+            return "faccia"
+    elif n == 2:
+        if person == 1:
+            return "facciamo"
+        elif person == 2:
+            return "fate"
+        else:
+            return "facciano"
+
+def get_imperativo_dare(person, n):
+    if n == 1:
+        if person == 2:
+            return "da"
+        else:
+            return "dia"
+    elif n == 2:
+        if person == 1:
+            return "diamo"
+        elif person == 2:
+            return "date"
+        else:
+            return "diano"
+
+def get_imperativo_dire(person, n):
+    if n == 1:
+        if person == 2:
+            return "di"
+        else:
+            return "dica"
+    elif n == 2:
+        if person == 1:
+            return "diciamo"
+        elif person == 2:
+            return "dite"
+        else:
+            return "dicano"
+
+def get_imperativo_stare(person, n):
+    if n == 1:
+        if person == 2:
+            return "sta"
+        else:
+            return "stia"
+    elif n == 2:
+        if person == 1:
+            return "stiamo"
+        elif person == 2:
+            return "state"
+        else:
+            return "stiano"
+
