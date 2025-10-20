@@ -156,6 +156,7 @@ def get_irregular_pronome_lontano(noun):
     else:
         return "quelle"
 
+# metoda określająca liczbę i rodzaj rzeczownika
 def define_gender(noun):
     if noun[-1] == 'o':
         return "m_s"
@@ -175,6 +176,24 @@ def define_gender(noun):
     else:
         return "m_s"
 
+# poprawna forma przymiotnika
+def get_adjective_in_correct_form(noun, adjective):
+    noun_gender = define_gender(noun)
+    if noun_gender == "m_s":
+        if adjective[-1] == 'o' or adjective[-1] == 'e':
+            return adjective
+        else: return adjective[:-1] + 'o'
+    elif noun_gender == "f_s":
+        if adjective[-1] == 'a' or adjective[-1] == 'e':
+            return adjective
+        else: return adjective[:-1] + 'a'
+    elif noun_gender == "m_p":
+        return adjective[:-1] + 'i'
+    else:
+        if adjective[-1] == 'a':
+            return adjective[:-1] + 'e'
+
+# zaimki dzierżawcze
 def get_possesive_pronoun(person, n, noun):
     noun_gender = define_gender(noun)
     if noun_gender == 'm_s':
@@ -238,6 +257,7 @@ def get_possesive_pronoun(person, n, noun):
             elif person == 3:
                 return "loro"
 
+# czas teraźniejszy - presente
 def get_present_tense(verb, data):
     person = data[0]
     n = data[1]
@@ -307,6 +327,7 @@ def get_present_tense(verb, data):
     else:
         return get_present_tense_irregular(verb, person, n)
 
+# odmiana czasowników nieregularnych w czasie teraźniejszym
 def get_present_tense_irregular(verb, person, n):
     match verb:
         case "essere": return get_present_essere(person, n)
@@ -497,6 +518,7 @@ def get_present_tradurre(person, n):
         else:
             return "traducono"
 
+# czas przeszły passato prossimo
 def get_past_tense(verb, data):
     person = data[0]
     n = data[1]
@@ -514,6 +536,7 @@ def get_past_tense(verb, data):
 
     return modal + " " + participio
 
+# forma przeszła głównego czasownika w passato prossimo w tym odmiana nieregularna
 def get_participio_passato(verb):
     irregolari = {
         "essere": "stato",
@@ -551,6 +574,7 @@ def get_participio_passato(verb):
     elif verb[-3] == 'i':
         return verb[:-3] + "ito"
 
+# czas przyszły futuro semplice
 def get_future_tense(verb, data):
     person = data[0]
     n = data[1]
@@ -590,21 +614,22 @@ def get_future_tense(verb, data):
     else:
         return get_future_tense_irregular(verb, person, n)
 
+# nieregularne formy przyszłe
 def get_future_tense_irregular(verb, person, n):
     match verb:
-        case "cercare": return get_future_cercare(verb, person)
-        case "pagare": return get_future_pagare(verb, person)
-        case "essere": return get_future_essere(verb, person)
-        case "avere": return get_future_avere(verb, person)
-        case "fare": return get_future_fare(verb, person)
-        case "andare": return get_future_andare(verb, person)
-        case "venire": return get_future_venire(verb, person)
-        case "dare": return get_future_dare(verb, person)
-        case "dire": return get_future_dire(verb, person)
-        case "rimanere": return get_future_rimanere(verb, person)
-        case "vedere": return get_future_vedere(verb, person)
-        case "stare": return get_future_stare(verb, person)
-        case "sapere": return get_future_sapere(verb, person)
+        case "cercare": return get_future_cercare(person, n)
+        case "pagare": return get_future_pagare(person, n)
+        case "essere": return get_future_essere(person, n)
+        case "avere": return get_future_avere(person, n)
+        case "fare": return get_future_fare(person, n)
+        case "andare": return get_future_andare(person, n)
+        case "venire": return get_future_venire(person, n)
+        case "dare": return get_future_dare(person, n)
+        case "dire": return get_future_dire(person, n)
+        case "rimanere": return get_future_rimanere(person, n)
+        case "vedere": return get_future_vedere(person, n)
+        case "stare": return get_future_stare(person, n)
+        case "sapere": return get_future_sapere(person, n)
 
 def get_future_cercare(person, n):
     if n == 1:
