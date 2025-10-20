@@ -303,25 +303,74 @@ sentenceTypeForm.addEventListener('submit', (event) => {
     document.querySelector('.stage3V2').hidden = false;
 });
 
-const moodTypeForm = document.getElementById('moodTypeForm');
-moodTypeForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    parameters.mood_type = document.querySelector('input[name="moodType"]:checked').value
-    console.log('Selected mood type:', parameters.mood_type);
-    displayCurrentDictionary(parameters);
-    document.querySelector('.stage3V2').hidden = true;
-    document.querySelector('.stage3V3').hidden = false;
-});
-
 const tenseForm = document.getElementById('tenseForm');
+const moodTypeForm = document.getElementById('moodTypeForm');
+
 tenseForm.addEventListener('submit', (event) => {
     event.preventDefault();
     parameters.tense_type = document.querySelector('input[name="tenseType"]:checked').value
     console.log('Selected tense type:', parameters.tense_type);
     displayCurrentDictionary(parameters);
-    flag=true;
-    document.querySelector('.stage3V3').hidden = true;
-    document.querySelector('.stage1').hidden = false;
+
+    while (moodTypeForm.children.length > 2) {
+        moodTypeForm.removeChild(moodTypeForm.children[2]);
+    }
+
+    //creating label for subjunctive
+    let subjunctiveLabel = document.createElement('label')
+    const subjunctiveInput = document.createElement('input');
+    subjunctiveInput.type = 'radio';
+    subjunctiveInput.name = 'moodType';
+    subjunctiveInput.value = 'subjunctive';
+    subjunctiveInput.required = true;
+    subjunctiveLabel.appendChild(subjunctiveInput)
+    subjunctiveLabel.appendChild(document.createTextNode('Subjunctive'));
+
+    //creating label for imperative
+    let imperativeLabel = document.createElement('label')
+    const imperativeInput = document.createElement('input');
+    imperativeInput.type = 'radio';
+    imperativeInput.name = 'moodType';
+    imperativeInput.value = 'imperative';
+    imperativeInput.required = true;
+    imperativeLabel.appendChild(imperativeInput)
+    imperativeLabel.appendChild(document.createTextNode('Imperative'))
+
+
+
+    if(parameters.tense_type === "present" && parameters.subject_person_code.startsWith('1')){
+        console.log("heere")
+        moodTypeForm.appendChild(subjunctiveLabel);
+        moodTypeForm.appendChild(document.createElement('br'));
+    }
+    else if(parameters.tense_type === "present"){
+        moodTypeForm.appendChild(subjunctiveLabel);
+        moodTypeForm.appendChild(document.createElement('br'));
+        moodTypeForm.appendChild(imperativeLabel);
+        moodTypeForm.appendChild(document.createElement('br'));
+    }
+    else if(parameters.tense_type === "past"){
+        moodTypeForm.appendChild(subjunctiveLabel);
+        moodTypeForm.appendChild(document.createElement('br'));
+    }
+
+    const button = document.createElement('button');
+    button.type = 'submit';
+    button.textContent = 'Confirm';
+    moodTypeForm.appendChild(button)
+
+    moodTypeForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        parameters.mood_type = document.querySelector('input[name="moodType"]:checked').value
+        console.log('Selected mood type:', parameters.mood_type);
+        displayCurrentDictionary(parameters);
+        flag=true;
+        document.querySelector('.stage3V3').hidden = true;
+        document.querySelector('.stage1').hidden = false;
+    });
+
+    document.querySelector('.stage3V2').hidden = true;
+    document.querySelector('.stage3V3').hidden = false;
 });
 
 const finalResultDiv = document.getElementById('finalResult');
