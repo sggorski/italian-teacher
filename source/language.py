@@ -2,7 +2,7 @@
 def get_nouns():
     nouns = ["parde", "madre", "genitori", "fratello", "sorella", "marito", "moglie", "bambino", "bambina", "figlio",
              "figlia", "zio", "zia", "nonno", "nonna", "nipote", "cibo", "colazione", "pranzo", "cena", "pane", "formaggio",
-             "vino", "caffe", "latte", "te", "torta", "panino", "carne", "sale", "insalata", "frutta", "verdura", "piatto",
+             "vino", "latte", "torta", "panino", "carne", "sale", "insalata", "frutta", "verdura", "piatto",
              "tavolo", "insegnante", "medico", "ingegnere", "cameriere", "commesso", "commessa", "segretario", "segretaria",
              "giornale", "congresso", "parlamento", "bandiera", "banca", "contanti", "soldi", "negozio", "mercato", "maglietta",
              "pantaloni", "scarpe", "borsa", "cappello", "cappotto", "vestito", "collana", "passatempi", "sport", "calcio",
@@ -67,7 +67,6 @@ def handle_subject(data):
         noun = data["subject_noun"]
 
         if data["subject_number"] == "plural":
-            noun = get_plural(noun)
             singular_1 = False
 
         if data["subject_article"] == "definite":
@@ -80,6 +79,9 @@ def handle_subject(data):
                 sentence += get_articolo_undeterminativo_singular(noun) + " "
             else:
                 sentence += get_articolo_undeterminativo_plural(noun) + " "
+
+        if data["subject_number"] == "plural":
+            noun = get_plural(noun)
 
         if "subject_demonstrative" in data.keys():
             if data["subject_demonstrative"] == "near":
@@ -173,7 +175,6 @@ def handle_object(data):
         noun = data["object_noun"]
 
         if data["object_number"] == "plural":
-            noun = get_plural(noun)
             singular_1 = False
 
         if data["object_article"] == "definite":
@@ -186,6 +187,9 @@ def handle_object(data):
                 sentence += get_articolo_undeterminativo_singular(noun) + " "
             else:
                 sentence += get_articolo_undeterminativo_plural(noun) + " "
+
+        if data["object_number"] == "plural":
+            noun = get_plural(noun)
 
         if "object_demonstrative" in data.keys():
             if data["object_demonstrative"] == "near":
@@ -237,6 +241,8 @@ def handle_object(data):
 def get_plural(noun):
     if noun in ("caffe", "te"):
         return noun
+    if noun == "moglie":
+        return "mogli"
     elif noun[-1] == 'o':
         return noun[:-1] + 'i'
     elif noun[-1] == 'a':
@@ -274,7 +280,7 @@ def get_articolo_determinativo_singular(noun):
         return "lo"
     elif noun[0] in ('u','i','o','a','e'):
         return "l'"
-    elif noun[-1] == 'a':
+    elif noun[-1] == 'a' or noun in ("madre", "moglie", "colazione", "carne", "tigre"):
         return "la"
     else:
         return "il"
@@ -301,6 +307,8 @@ def get_pronome_vicino(noun):
     elif noun[-1] == 'a':
         return "questa"
     elif noun[-1] == 'i':
+        if noun in ("madri", "moglii", "colazioni", "carni", "tigri"):
+            return "queste"
         return "questi"
     elif noun[-1] == 'e':
         return get_irregular_pronome_vicino(noun)
@@ -329,6 +337,8 @@ def get_pronome_lontano(noun):
     elif noun[-1] == 'a':
         return "quella"
     elif noun[-1] == 'i':
+        if noun in ("madri", "moglii", "colazioni", "carni", "tigri"):
+            return "quelle"
         return "quelli"
     elif noun[-1] == 'e':
         return get_irregular_pronome_lontano(noun)
@@ -353,9 +363,12 @@ def define_gender(noun):
     elif noun[-1] == 'a':
         return "f_s"
     elif noun[-1] == 'i':
-        return "m_p"
+        if noun in ("madri", "moglii", "colazioni", "carni", "tigri"):
+            return "f_p"
+        else:
+            return "m_p"
     elif noun[-1] == 'e':
-        if noun in ("parde", "nipote", "pane", "caffe", "te", "sale", "cameriere", "ingegnere",
+        if noun in ("padre", "nipote", "pane", "caffe", "te", "sale", "cameriere", "ingegnere",
                 "insegnante", "giornale", "attore", "sapone", "cane", "fiore", "elefante",
                 "leone", "pesce", "fiume", "mare", "sole", "latte"):
             return "m_s"
@@ -380,8 +393,9 @@ def get_adjective_in_correct_form(noun, adjective):
     elif noun_gender == "m_p":
         return adjective[:-1] + 'i'
     else:
-        if adjective[-1] == 'a':
+        if adjective[-1] == 'a' or adjective[-1] == 'o':
             return adjective[:-1] + 'e'
+        else: return adjective[:-1] + 'i'
 
 # zaimki dzierżawcze
 def get_possesive_pronoun(person, n, noun):
