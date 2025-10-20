@@ -529,8 +529,13 @@ def get_past_tense(verb, data):
     if verb in ("essere", "uscire", "andare", "venire", "salire", "rimanere", "morire", "nascere",
                 "scendere", "correre", "accendere", "crescere", "tornare", "visitare", "partire", "pulire"):
         modal = get_present_essere(person, n)
-        if gender == 2:
-            participio = participio[:-1] + 'a'
+        if gender == 1 and n == 2:
+            participio = participio[:-1] + 'i'
+        elif gender == 2:
+            if n == 1:
+                participio = participio[:-1] + 'a'
+            elif n == 2:
+                participio = participio[:-1] + 'e'
     else:
         modal = get_present_avere(person, n)
 
@@ -838,3 +843,273 @@ def get_future_sapere(person, n):
             return "saprete"
         else:
             return "sapranno"
+
+# tryb przypuszczający prosty - teraźniejszy
+def get_condizionale_semplice(verb, data):
+    person = data[0]
+    n = data[1]
+
+    if verb not in ("essere", "avere", "fare", "stare", "dare", "andare", "vivere", "vedere", "venire",
+                    "bere", "rimanere", "sapere"):
+        if verb[-3] == 'a' or verb[-1] == 'e':
+            if n == 1:
+                if person == 1:
+                    return verb[:-3] + "erei"
+                elif person == 2:
+                    return verb[:-3] + "eresti"
+                else:
+                    return verb[:-3] + "erebbe"
+            elif n == 2:
+                if person == 1:
+                    return verb[:-3] + "eremmo"
+                elif person == 2:
+                    return verb[:-3] + "ereste"
+                else:
+                    return verb[:-3] + "erebbero"
+        elif verb[-3] == 'i':
+            if n == 1:
+                if person == 1:
+                    return verb[:-3] + "irei"
+                elif person == 2:
+                    return verb[:-3] + "iresti"
+                else:
+                    return verb[:-3] + "irebbe"
+            elif n == 2:
+                if person == 1:
+                    return verb[:-3] + "iremmo"
+                elif person == 2:
+                    return verb[:-3] + "ireste"
+                else:
+                    return verb[:-3] + "irebbero"
+    else:
+        return get_condizionale_irregular(verb, person, n)
+
+# tryb przypuszczający teraźniejszy - odmiana nieregularna
+def get_condizionale_irregular(verb, person, n):
+    match verb:
+        case "essere": return get_condizionale_essere(person, n)
+        case "avere": return get_condizionale_avere(person, n)
+        case "fare": return get_condizionale_fare(person, n)
+        case "andare": return get_condizionale_andare(person, n)
+        case "venire": return get_condizionale_venire(person, n)
+        case "vivere": return get_condizionale_vivere(person, n)
+        case "dare": return get_condizionale_dare(person, n)
+        case "rimanere": return get_condizionale_rimanere(person, n)
+        case "vedere": return get_condizionale_vedere(person, n)
+        case "stare": return get_condizionale_stare(person, n)
+        case "sapere": return get_condizionale_sapere(person, n)
+        case "bere": return get_condizionale_bere(person, n)
+
+def get_condizionale_essere(person, n):
+    if n == 1:
+        if person == 1:
+            return "sarei"
+        elif person == 2:
+            return "saresti"
+        else:
+            return "sarebbe"
+    elif n == 2:
+        if person == 1:
+            return "saremmo"
+        elif person == 2:
+            return "sareste"
+        else:
+            return "sarebbero"
+
+def get_condizionale_avere(person, n):
+    if n == 1:
+        if person == 1:
+            return "avrei"
+        elif person == 2:
+            return "avresti"
+        else:
+            return "avrebbe"
+    elif n == 2:
+        if person == 1:
+            return "avremmo"
+        elif person == 2:
+            return "avreste"
+        else:
+            return "avrebbero"
+
+def get_condizionale_fare(person, n):
+    if n == 1:
+        if person == 1:
+            return "farei"
+        elif person == 2:
+            return "faresti"
+        else:
+            return "farebbe"
+    elif n == 2:
+        if person == 1:
+            return "faremmo"
+        elif person == 2:
+            return "fareste"
+        else:
+            return "farebbero"
+
+def get_condizionale_andare(person, n):
+    if n == 1:
+        if person == 1:
+            return "andrei"
+        elif person == 2:
+            return "andresti"
+        else:
+            return "andrebbe"
+    elif n == 2:
+        if person == 1:
+            return "andremmo"
+        elif person == 2:
+            return "andreste"
+        else:
+            return "andrebbero"
+
+def get_condizionale_venire(person, n):
+    if n == 1:
+        if person == 1:
+            return "verrei"
+        elif person == 2:
+            return "verresti"
+        else:
+            return "verrebbe"
+    elif n == 2:
+        if person == 1:
+            return "verremmo"
+        elif person == 2:
+            return "verreste"
+        else:
+            return "verrebbero"
+
+def get_condizionale_vivere(person, n):
+    if n == 1:
+        if person == 1:
+            return "vivrei"
+        elif person == 2:
+            return "vivresti"
+        else:
+            return "vivrebbe"
+    elif n == 2:
+        if person == 1:
+            return "vivremmo"
+        elif person == 2:
+            return "vivreste"
+        else:
+            return "vivrebbero"
+
+def get_condizionale_vedere(person, n):
+    if n == 1:
+        if person == 1:
+            return "vedrei"
+        elif person == 2:
+            return "vedresti"
+        else:
+            return "vedrebbe"
+    elif n == 2:
+        if person == 1:
+            return "vedremmo"
+        elif person == 2:
+            return "vedreste"
+        else:
+            return "vedrebbero"
+
+def get_condizionale_dare(person, n):
+    if n == 1:
+        if person == 1:
+            return "darei"
+        elif person == 2:
+            return "daresti"
+        else:
+            return "darebbe"
+    elif n == 2:
+        if person == 1:
+            return "daremmo"
+        elif person == 2:
+            return "dareste"
+        else:
+            return "darebbero"
+
+def get_condizionale_rimanere(person, n):
+    if n == 1:
+        if person == 1:
+            return "rimarrei"
+        elif person == 2:
+            return "rimarresti"
+        else:
+            return "rimarrebbe"
+    elif n == 2:
+        if person == 1:
+            return "rimarremmo"
+        elif person == 2:
+            return "rimarreste"
+        else:
+            return "rimarrebbero"
+
+def get_condizionale_stare(person, n):
+    if n == 1:
+        if person == 1:
+            return "starei"
+        elif person == 2:
+            return "staresti"
+        else:
+            return "starebbe"
+    elif n == 2:
+        if person == 1:
+            return "staremmo"
+        elif person == 2:
+            return "stareste"
+        else:
+            return "starebbero"
+
+def get_condizionale_sapere(person, n):
+    if n == 1:
+        if person == 1:
+            return "saprei"
+        elif person == 2:
+            return "sapresti"
+        else:
+            return "saprebbe"
+    elif n == 2:
+        if person == 1:
+            return "sapremmo"
+        elif person == 2:
+            return "sapreste"
+        else:
+            return "saprebbero"
+
+def get_condizionale_bere(person, n):
+    if n == 1:
+        if person == 1:
+            return "berrei"
+        elif person == 2:
+            return "berresti"
+        else:
+            return "berrebbe"
+    elif n == 2:
+        if person == 1:
+            return "berremmo"
+        elif person == 2:
+            return "berreste"
+        else:
+            return "berrebbero"
+
+# tryb przypuszczający złożony - czasy przeszłe
+def get_condizionale_composto(verb, data):
+    person = data[0]
+    n = data[1]
+    gender = data[2]
+
+    participio = get_participio_passato(verb)
+
+    if verb in ("essere", "uscire", "andare", "venire", "salire", "rimanere", "morire", "nascere",
+                "scendere", "correre", "accendere", "crescere", "tornare", "visitare", "partire", "pulire"):
+        modal = get_condizionale_essere(person, n)
+        if gender == 1 and n == 2:
+            participio = participio[:-1] + 'i'
+        elif gender == 2 and n == 1:
+            participio = participio[:-1] + 'a'
+        elif gender == 2 and n == 2:
+            participio = participio[:-1] + 'e'
+    else:
+        modal = get_condizionale_avere(person, n)
+
+    return modal + " " + participio
