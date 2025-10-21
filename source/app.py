@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request
-from source.language_utils import words_database
+from language_utils import words_database
 import language
 app = Flask(__name__)
 

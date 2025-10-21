@@ -1,4 +1,4 @@
-from source.language_utils import adjectives, articles, nouns, pronouns, verbs
+from language_utils import adjectives, articles, nouns, pronouns, verbs
 
 
 # GŁÓWNA FUNKCJA DO TWORZENIA CAŁYCH ZDAŃ
