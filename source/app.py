@@ -1,4 +1,5 @@
-from flask import Flask, render_template, jsonify, request, session
+from flask import Flask, render_template, jsonify, request
+from source.language_utils import words_database
 import language
 app = Flask(__name__)
 
@@ -8,9 +9,9 @@ def index():
 
 @app.get('/api/get_data')
 def get_data():
-    nouns = language.get_nouns()
-    verbs = language.get_verbs()
-    adjectives = language.get_adjectives()
+    nouns = words_database.get_nouns()
+    verbs = words_database.get_verbs()
+    adjectives = words_database.get_adjectives()
     return jsonify({
         'nouns': nouns,
         'verbs': verbs,
