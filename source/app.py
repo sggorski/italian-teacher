@@ -26,4 +26,4 @@ def construct_sentence():
     return jsonify({"sentence": sentence})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

@@ -2,9 +2,15 @@ let nouns = [];
 let verbs = [];
 let adjectives = [];
 
+/*
+    parameters - all necessary information for sentence to be created
+*/
 let parameters = {};
+
+// flag used to determine if we are in object part of the program - to avoid duplicating code
 let flag = false
 
+// function to display current parameters chosen by the user
 function displayCurrentDictionary(dict) {
     const liveOutput = document.getElementById('liveOutput');
     liveOutput.innerHTML = '';
@@ -22,6 +28,7 @@ function displayCurrentDictionary(dict) {
     }
 }
 
+// fetching data from backend
 async function fetchData() {
     try {
         const response = await fetch('/api/get_data');
@@ -36,6 +43,7 @@ async function fetchData() {
     }
 }
 
+// adding verbs to a select list
 async function uploadVerbs(){
     verbs.forEach(verb => {
             let verbSelect = document.getElementById("verbSelect")
@@ -46,7 +54,7 @@ async function uploadVerbs(){
     });
 }
 
-
+// POST request to backend with all of the parameters, response = constructed sentence (by backend)
 async function constructSentence(data) {
     try {
         const response = await fetch('/api/construct_sentence', {
@@ -288,11 +296,11 @@ verbForm.addEventListener('submit', (event) => {
     parameters.verb = verbSelect.value;
     console.log('Selected verb:', parameters.verb);
     document.querySelector('.stage3').hidden = true
-    //flag = true;
     displayCurrentDictionary(parameters);
     document.querySelector('.stage3V1').hidden = false
 });
 
+//picking sentence form
 const sentenceTypeForm = document.getElementById('sentenceTypeForm');
 sentenceTypeForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -303,6 +311,8 @@ sentenceTypeForm.addEventListener('submit', (event) => {
     document.querySelector('.stage3V2').hidden = false;
 });
 
+
+//picking correct tense and, based on this tense, generating possible moods to be chosen by the user
 const tenseForm = document.getElementById('tenseForm');
 const moodTypeForm = document.getElementById('moodTypeForm');
 
@@ -337,9 +347,8 @@ tenseForm.addEventListener('submit', (event) => {
     imperativeLabel.appendChild(document.createTextNode('Imperative'))
 
 
-
-    if(parameters.tense_type === "present" && parameters.subject_person_code.startsWith('1')){
-        console.log("heere")
+    if(parameters.tense_type === "present" && parameters.hasOwnProperty('subject_person_code') &&
+        parameters.subject_person_code.startsWith('1')) {
         moodTypeForm.appendChild(subjunctiveLabel);
         moodTypeForm.appendChild(document.createElement('br'));
     }
@@ -359,6 +368,7 @@ tenseForm.addEventListener('submit', (event) => {
     button.textContent = 'Confirm';
     moodTypeForm.appendChild(button)
 
+    //picking mood
     moodTypeForm.addEventListener('submit', (event) => {
         event.preventDefault();
         parameters.mood_type = document.querySelector('input[name="moodType"]:checked').value
@@ -373,6 +383,7 @@ tenseForm.addEventListener('submit', (event) => {
     document.querySelector('.stage3V3').hidden = false;
 });
 
+//showing final results and resetting parameters and stages
 const finalResultDiv = document.getElementById('finalResult');
 const practiceBtn = document.getElementById('practiceAgainBtn');
 practiceBtn.addEventListener('click', () => {
