@@ -1,4 +1,4 @@
-from source.language_utils import nouns
+from .nouns import *
 
 # zaimek wskazujący bliski
 def get_pronome_vicino(noun):
@@ -60,7 +60,7 @@ def get_irregular_pronome_lontano(noun):
 
 # zaimki dzierżawcze
 def get_possesive_pronoun(person, n, noun):
-    noun_gender = nouns.define_gender(noun)
+    noun_gender = define_gender(noun)
     if noun_gender == 'm_s':
         if n == 1:
             if person == 1:

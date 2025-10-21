@@ -1,8 +1,8 @@
-from source.language_utils import nouns
+from  .nouns import define_gender
 
 # poprawna forma przymiotnika
 def get_adjective_in_correct_form(noun, adjective):
-    noun_gender = nouns.define_gender(noun)
+    noun_gender = define_gender(noun)
     if noun_gender == "m_s":
         if adjective[-1] == 'o' or adjective[-1] == 'e':
             return adjective
