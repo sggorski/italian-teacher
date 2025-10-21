@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 from language_utils import words_database
 import language
+import os
 app = Flask(__name__)
 
 @app.route('/')
@@ -25,5 +26,6 @@ def construct_sentence():
     sentence = language.construct_sentence(data)
     return jsonify({"sentence": sentence})
 
-if __name__ == '__main__':
-    app.run()
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
