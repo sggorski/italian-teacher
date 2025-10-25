@@ -74,6 +74,21 @@ async function constructSentence(data) {
     }
 }
 
+//retry function to deal eg. with lost internet connection
+async function retry(fn, retries = 3, delay = 2000) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      console.warn(`Attempt ${i + 1} failed:`, err);
+      if (i < retries - 1) await new Promise(r => setTimeout(r, delay));
+    }
+  }
+  throw new Error("All attempts failed");
+}
+
+
+
 //hiding all elements
 const stages = document.querySelectorAll('[class^="stage"]');
 stages.forEach(stage => {
@@ -250,13 +265,18 @@ numberForm.addEventListener('submit', (event) => {
     else{
             console.log("Collected data: ", parameters)
             document.querySelector('.stageLoad').hidden = false
-            let result = constructSentence(parameters);
-            result.then(r => {
-                document.querySelector('.stageLoad').hidden = true
+            retry(() => constructSentence(parameters))
+              .then(r => {
+                document.querySelector('.stageLoad').hidden = true;
                 const outputDiv = document.getElementById('finalResult');
                 outputDiv.textContent = r;
-                document.querySelector('.stageFinal').hidden = false
-            })
+                document.querySelector('.stageFinal').hidden = false;
+              })
+              .catch(err => {
+                document.querySelector('.stageLoad').hidden = true;
+                alert("No internet connection! Try again later!.");
+                console.error(err);
+              });
     }
 });
 
@@ -277,13 +297,18 @@ buttons.forEach(button => {
         else{
             console.log("Collected data: ", parameters)
             document.querySelector('.stageLoad').hidden = false
-            let result = constructSentence(parameters);
-            result.then(r => {
-                document.querySelector('.stageLoad').hidden = true
+            retry(() => constructSentence(parameters))
+              .then(r => {
+                document.querySelector('.stageLoad').hidden = true;
                 const outputDiv = document.getElementById('finalResult');
                 outputDiv.textContent = r;
-                document.querySelector('.stageFinal').hidden = false
-            })
+                document.querySelector('.stageFinal').hidden = false;
+              })
+              .catch(err => {
+                document.querySelector('.stageLoad').hidden = true;
+                alert("No internet connection! Try again later!.");
+                console.error(err);
+              });
         }
     });
 });
