@@ -294,17 +294,19 @@ buttons.forEach(button => {
         else{
             console.log("Collected data: ", parameters)
             document.querySelector('.stageLoad').hidden = false
+            const outputDiv = document.getElementById('finalResult');
             retry(() => constructSentence(parameters))
               .then(r => {
                 document.querySelector('.stageLoad').hidden = true;
-                const outputDiv = document.getElementById('finalResult');
                 outputDiv.textContent = r;
                 document.querySelector('.stageFinal').hidden = false;
               })
               .catch(err => {
                 document.querySelector('.stageLoad').hidden = true;
-                alert("No internet connection! Try again later!.");
+                alert("No internet connection! Try again later!");
                 console.error(err);
+                outputDiv.textContent = "No internet connection! Try again later!";
+                document.querySelector('.stageFinal').hidden = false;
               });
         }
     });
