@@ -2,7 +2,15 @@ from flask import Flask, render_template, jsonify, request
 from language_utils import words_database
 import language
 import os
+import pickle
 app = Flask(__name__)
+
+def get_word_stats():
+    with open('word_stats/adjectives.pkl', 'rb') as f:
+        adjectives = pickle.load(f)
+    with open('word_stats/verbs.pkl', 'rb') as f:
+        verbs = pickle.load(f)
+    return adjectives, verbs
 
 @app.route('/')
 def index():
@@ -13,10 +21,13 @@ def get_data():
     nouns = words_database.get_nouns()
     verbs = words_database.get_verbs()
     adjectives = words_database.get_adjectives()
+    adjectives_stats, verbs_stats = get_word_stats()
     return jsonify({
         'nouns': nouns,
         'verbs': verbs,
         'adjectives': adjectives,
+        'adjectives_stats': adjectives_stats,
+        'verbs_stats': verbs_stats
     })
 
 

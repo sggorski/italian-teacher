@@ -1,6 +1,9 @@
 let nouns = [];
 let verbs = [];
 let adjectives = [];
+let adjectives_stats = {}
+let verbs_stats = {}
+
 
 /*
     parameters - all necessary information for sentence to be created
@@ -37,7 +40,8 @@ async function fetchData() {
         nouns = data.nouns;
         verbs = data.verbs;
         adjectives = data.adjectives;
-        console.log('Fetched data:', nouns, verbs, adjectives);
+        adjectives_stats = data.adjectives_stats
+        verbs_stats = data.verbs_stats
     } catch (error) {
         console.error('Error while fetching data:', error);
     }
@@ -48,11 +52,59 @@ async function uploadVerbs(){
     verbs.forEach(verb => {
             let verbSelect = document.getElementById("verbSelect")
             const option = document.createElement('option');
+            if (parameters["subject_noun"]) {
+                const subject = parameters["subject_noun"];
+                const verbStatMap = verbs_stats[subject];
+                if (verbStatMap) {
+                    const verbStat = verbStatMap[verb];
+                    if (verbStat >= 5) {
+                        option.style.color = "green";
+                        option.style.background = "#f0f0f0";
+                    } else if (verbStat >= 3) {
+                        option.style.color = "orange";
+                        option.style.background = "#f0f0f0";
+                    }else if (verbStat >=1){
+                       option.style.color = "yellow";
+                       option.style.background = "#f0f0f0";
+                    }
+                }
+            }
             option.value = verb;
             option.textContent = verb;
             verbSelect.appendChild(option);
     });
 }
+
+async function uploadAdjectives(){
+    adjectives.forEach(adj => {
+            const adjectiveSelect = document.getElementById('adjectiveSelect');
+            const option = document.createElement('option');
+            let noun;
+            if(!flag && parameters["subject_noun"]) noun = parameters["subject_noun"];
+            else if(flag && parameters["object_noun"]) noun = parameters["object_noun"];
+            if(noun) {
+                const adjectiveMap = adjectives_stats[noun];
+                console.log(adjectiveMap)
+                if (adjectiveMap) {
+                    const adjStat = adjectiveMap[adj];
+                    if (adjStat >= 5) {
+                        option.style.color = "green";
+                        option.style.background = "#f0f0f0";
+                    } else if (adjStat >= 3) {
+                        option.style.color = "orange";
+                        option.style.background = "#f0f0f0";
+                    }else if (adjStat >=1){
+                       option.style.color = "yellow";
+                       option.style.background = "#f0f0f0";
+                    }
+                }
+            }
+            option.value = adj;
+            option.textContent = adj;
+            adjectiveSelect.appendChild(option);
+        });
+}
+
 
 // POST request to backend with all of the parameters, response = constructed sentence (by backend)
 async function constructSentence(data) {
@@ -83,8 +135,6 @@ async function retry(fn, retries = 3, delay = 2000) {
   }
   throw new Error("All attempts failed");
 }
-
-
 
 //hiding all elements
 const stages = document.querySelectorAll('[class^="stage"]');
@@ -149,20 +199,13 @@ nounForm.addEventListener('submit', (event) => {
 // checking if user want an adjective
 const adjectiveForm = document.getElementById('adjectiveForm');
 const wantsAdjective = document.getElementById('adjectiveCheckbox');
-const adjectiveSelect = document.getElementById('adjectiveSelect');
 
 adjectiveForm.addEventListener('submit', (event) => {
     event.preventDefault();
     console.log('Wants adjective:', wantsAdjective.checked);
     document.querySelector('.stage3SF').hidden = true;
     if(wantsAdjective.checked){
-        adjectives.forEach(adj => {
-            const option = document.createElement('option');
-            option.value = adj;
-            option.textContent = adj;
-            adjectiveSelect.appendChild(option);
-        });
-        document.querySelector('.stage4SFA').hidden = false;
+        uploadAdjectives().then(()=>{document.querySelector('.stage4SFA').hidden = false;})
     }
     else{
         document.querySelector('.stage5SF').hidden = false;
