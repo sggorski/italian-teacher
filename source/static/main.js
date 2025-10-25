@@ -56,29 +56,26 @@ async function uploadVerbs(){
 
 // POST request to backend with all of the parameters, response = constructed sentence (by backend)
 async function constructSentence(data) {
-    try {
-        const response = await fetch('/api/construct_sentence', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
+  const response = await fetch('/api/construct_sentence', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
 
-        if (!response.ok) throw new Error('Network error');
-        const result = await response.json();
-        console.log('Constructed sentence:', result.sentence);
-        return result.sentence;
-    } catch (error) {
-        console.error('Error while constructing sentence:', error);
-    }
+  if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+
+  const result = await response.json();
+  console.log('Constructed sentence:', result.sentence);
+  return result.sentence;
 }
 
 //retry function to deal eg. with lost internet connection
 async function retry(fn, retries = 3, delay = 2000) {
   for (let i = 0; i < retries; i++) {
     try {
-      return await fn();
+        return await fn();
     } catch (err) {
       console.warn(`Attempt ${i + 1} failed:`, err);
       if (i < retries - 1) await new Promise(r => setTimeout(r, delay));
