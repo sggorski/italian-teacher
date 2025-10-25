@@ -49,8 +49,9 @@ async function fetchData() {
 
 // adding verbs to a select list
 async function uploadVerbs(){
+    let verbSelect = document.getElementById("verbSelect")
+    verbSelect.innerHTML = "";
     verbs.forEach(verb => {
-            let verbSelect = document.getElementById("verbSelect")
             const option = document.createElement('option');
             if (parameters["subject_noun"]) {
                 const subject = parameters["subject_noun"];
@@ -67,6 +68,10 @@ async function uploadVerbs(){
                        option.style.color = "yellow";
                        option.style.background = "#f0f0f0";
                     }
+                    else{
+                        option.style.color = "";
+                        option.style.background = "";
+                    }
                 }
             }
             option.value = verb;
@@ -76,8 +81,9 @@ async function uploadVerbs(){
 }
 
 async function uploadAdjectives(){
+    const adjectiveSelect = document.getElementById('adjectiveSelect');
+    adjectiveSelect.innerHTML = "";
     adjectives.forEach(adj => {
-            const adjectiveSelect = document.getElementById('adjectiveSelect');
             const option = document.createElement('option');
             let noun;
             if(!flag && parameters["subject_noun"]) noun = parameters["subject_noun"];
@@ -169,6 +175,7 @@ subjectForm.addEventListener('submit', (event) => {
         document.querySelector('.stage2P').hidden = false;
     }
     else{
+        nounSelect.innerHTML = "";
         nouns.forEach(noun => {
             const option = document.createElement('option');
             option.value = noun;
