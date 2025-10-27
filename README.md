@@ -5,6 +5,8 @@ The app allows users to choose elements such as **verbs, nouns, adjectives**, gr
 
 ---
 
+![App Screenshot](img/img1.jpg)
+
 ## 🌟 Features
 
 - 🧠 **Grammar-based sentence construction** — users select grammatical components, and the app builds a correct Italian sentence.  
@@ -14,6 +16,8 @@ The app allows users to choose elements such as **verbs, nouns, adjectives**, gr
 - 🌐 **Web-based** — accessible from any device without installation.  
 
 ---
+
+![App Screenshot](img/img2.jpg)
 
 ## 🧰 Tech Stack
 
